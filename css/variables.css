@@ -55,10 +55,10 @@
      ============================================== */
 
   /* --- Ad Safe Zones (platform UI overlay protection, per-direction) --- */
-  --ad-safe-top: 64px;
-  --ad-safe-right: 64px;
-  --ad-safe-bottom: 64px;
-  --ad-safe-left: 64px;
+  --ad-safe-top: 100px;
+  --ad-safe-right: 100px;
+  --ad-safe-bottom: 100px;
+  --ad-safe-left: 100px;
 
   /* --- Ad Grid Gutter --- */
   --ad-gutter: 24px;
@@ -78,7 +78,7 @@
   --ad-weight-cta: 700;
   --ad-weight-body: 400;
 
-  --ad-line-height-headline: 1.05;
+  --ad-line-height-headline: 1.12;
   --ad-line-height-body: 1.35;
 
   --ad-tracking-headline: -0.02em;
@@ -86,8 +86,8 @@
   --ad-transform-cta: uppercase;
 
   /* --- Ad CTA --- */
-  --ad-cta-padding-x: 48px;
-  --ad-cta-padding-y: 18px;
+  --ad-cta-padding-x: 52px;
+  --ad-cta-padding-y: 24px;
   --ad-cta-radius: 6px;
 
   /* --- Ad Logo --- */

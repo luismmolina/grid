@@ -1,5 +1,5 @@
 import { LAYOUTS, getLayoutsForFormat, getRandomLayout } from './layouts.js';
-import { PALETTES, getRandomPalette, createBrandPalette } from './colors.js';
+import { PALETTES, getRandomPalette, createBrandPalette, generateBrandVariations } from './colors.js';
 import { FONT_PAIRINGS, getRandomPairing } from './typography.js';
 import { validateDesign } from './rules.js';
 import { createRng, randomSeed, uniqueRandomCombinations } from '../utils/random.js';
@@ -65,6 +65,7 @@ export class VariantGenerator {
     this.generatedKeys = new Set();
     this.variantCount = 0;
     this.lockedSlots = {};
+    this._brandVariations = null;
   }
 
   // ── Private helpers ──────────────────────────────────────────
@@ -169,13 +170,15 @@ export class VariantGenerator {
    */
   _pickPalette(assets, rng) {
     if (assets.brandColors && assets.brandColors.use) {
-      const palette = createBrandPalette(
-        assets.brandColors.primary,
-        assets.brandColors.secondary,
-        assets.brandColors.accent,
-      );
-      // Brand palette is deterministic so use a fixed index
-      return { palette, paletteIdx: -1 };
+      if (!this._brandVariations) {
+        this._brandVariations = generateBrandVariations(
+          assets.brandColors.primary,
+          assets.brandColors.secondary,
+          assets.brandColors.accent,
+        );
+      }
+      const idx = rng.int(0, this._brandVariations.length - 1);
+      return { palette: this._brandVariations[idx], paletteIdx: -(idx + 1) };
     }
 
     if ('palette' in this.lockedSlots) {

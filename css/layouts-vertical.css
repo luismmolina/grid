@@ -239,3 +239,101 @@
 .layout-vt-magazine .ad-el-image img { border-radius: 0; }
 .layout-vt-magazine .ad-el-headline { align-items: flex-end; }
 .layout-vt-magazine .ad-el-cta { justify-content: flex-end; }
+
+
+/* ── 11. Duo Stack ───────────────────────────────────────────────
+   Two stacked images (top + middle), headline and CTA below. */
+
+.layout-vt-duo-stack {
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 2fr auto auto;
+  grid-template-areas:
+    "image"
+    "image2"
+    "headline"
+    "cta";
+}
+.layout-vt-duo-stack .ad-el-image { padding: 0; }
+.layout-vt-duo-stack .ad-el-image img { border-radius: 0; }
+.layout-vt-duo-stack .ad-el-headline { padding-top: 16px; text-align: center; justify-content: center; }
+.layout-vt-duo-stack .ad-el-cta { justify-content: center; }
+
+
+/* ── 12. Dark Immersive ──────────────────────────────────────────
+   OVERLAY LAYOUT — full-bleed image with dark overlay.
+   Logo top, headline center, offer badge, CTA bottom. */
+
+.layout-vt-dark-immersive {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto auto;
+  grid-template-areas:
+    "logo    ."
+    ".       ."
+    "headline headline"
+    "offer   ."
+    "cta     cta";
+}
+.layout-vt-dark-immersive .ad-el-headline {
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-end;
+}
+.layout-vt-dark-immersive .ad-el-cta { justify-content: center; }
+.layout-vt-dark-immersive .ad-el-logo img { filter: brightness(0) invert(1); }
+.layout-vt-dark-immersive .ad-el-offer { justify-content: flex-start; }
+
+
+/* ── 13. Card Float ──────────────────────────────────────────────
+   Image fills top, floating card-like text block at bottom. */
+
+.layout-vt-card-float {
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr auto auto auto 1fr;
+  grid-template-areas:
+    "image"
+    "headline"
+    "subheadline"
+    "cta"
+    ".";
+}
+.layout-vt-card-float .ad-el-image { padding: 0; }
+.layout-vt-card-float .ad-el-image img { border-radius: 0; }
+.layout-vt-card-float .ad-el-headline { padding-top: 24px; text-align: center; justify-content: center; }
+.layout-vt-card-float .ad-el-subheadline { text-align: center; justify-content: center; }
+.layout-vt-card-float .ad-el-cta { justify-content: center; }
+
+
+/* ── 14. Top Heavy ───────────────────────────────────────────────
+   Image takes top 65%, then headline, subheadline, CTA stacked below. */
+
+.layout-vt-top-heavy {
+  grid-template-columns: 1fr;
+  grid-template-rows: 65fr auto auto auto;
+  grid-template-areas:
+    "image"
+    "headline"
+    "subheadline"
+    "cta";
+}
+.layout-vt-top-heavy .ad-el-image { padding: 0; }
+.layout-vt-top-heavy .ad-el-image img { border-radius: 0; }
+.layout-vt-top-heavy .ad-el-headline { padding-top: 20px; }
+.layout-vt-top-heavy .ad-el-cta { justify-content: center; }
+
+
+/* ── 15. Split Duo ───────────────────────────────────────────────
+   Left half = image, right half = image2, text spanning full width below. */
+
+.layout-vt-split-duo {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto auto;
+  grid-template-areas:
+    "image   image2"
+    "headline headline"
+    "cta     cta";
+}
+.layout-vt-split-duo .ad-el-image { padding: 0; }
+.layout-vt-split-duo .ad-el-image img { border-radius: 0; }
+.layout-vt-split-duo .ad-el-headline { text-align: center; justify-content: center; padding-top: 16px; }
+.layout-vt-split-duo .ad-el-cta { justify-content: center; }

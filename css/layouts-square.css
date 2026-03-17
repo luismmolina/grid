@@ -224,3 +224,108 @@
 .layout-sq-billboard .ad-el-image { padding: 0; }
 .layout-sq-billboard .ad-el-image img { border-radius: 0; }
 .layout-sq-billboard .ad-el-cta { justify-content: center; }
+
+
+/* ── 11. Duo Showcase ────────────────────────────────────────────
+   Two images side by side top 60%, headline + CTA below. */
+
+.layout-sq-duo-showcase {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 3fr auto auto;
+  grid-template-areas:
+    "image    image2"
+    "headline headline"
+    "cta      cta";
+}
+.layout-sq-duo-showcase .ad-el-image { padding: 0; }
+.layout-sq-duo-showcase .ad-el-image img { border-radius: 0; }
+.layout-sq-duo-showcase .ad-el-headline { text-align: center; justify-content: center; padding-top: 16px; }
+.layout-sq-duo-showcase .ad-el-cta { justify-content: center; }
+
+
+/* ── 12. Dark Overlay ────────────────────────────────────────────
+   OVERLAY LAYOUT — full-bleed image with dark overlay.
+   Logo top-left, headline center, CTA bottom. */
+
+.layout-sq-dark-overlay {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "logo     ."
+    ".        ."
+    "headline headline"
+    "cta      cta";
+}
+.layout-sq-dark-overlay .ad-el-headline {
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-end;
+}
+.layout-sq-dark-overlay .ad-el-cta { justify-content: center; }
+.layout-sq-dark-overlay .ad-el-logo img { filter: brightness(0) invert(1); }
+
+
+/* ── 13. Diagonal ────────────────────────────────────────────────
+   Image spans 2 cols top 2/3, text bottom-left. Asymmetric editorial feel. */
+
+.layout-sq-diagonal {
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 2fr auto auto;
+  grid-template-areas:
+    "image       image"
+    "headline    ."
+    "subheadline cta";
+}
+.layout-sq-diagonal .ad-el-image { padding: 0; }
+.layout-sq-diagonal .ad-el-image img { border-radius: 0; }
+.layout-sq-diagonal .ad-el-headline { align-items: flex-end; padding-top: 12px; }
+.layout-sq-diagonal .ad-el-cta { justify-content: flex-end; align-items: flex-end; }
+
+
+/* ── 14. Card ────────────────────────────────────────────────────
+   Centered card with generous padding. Image top, text below. Clean modern. */
+
+.layout-sq-card {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 2fr auto auto auto 1fr;
+  grid-template-areas:
+    "."
+    "image"
+    "headline"
+    "subheadline"
+    "cta"
+    ".";
+  justify-items: center;
+  text-align: center;
+}
+.layout-sq-card .ad-el-image {
+  width: 75%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.layout-sq-card .ad-el-headline { padding-top: 16px; }
+.layout-sq-card .ad-el-cta { justify-content: center; padding-top: 8px; }
+
+
+/* ── 15. Banner Top ──────────────────────────────────────────────
+   Horizontal image strip top 35%, big headline middle, CTA + logo bottom. */
+
+.layout-sq-banner-top {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 35fr 55fr auto;
+  grid-template-areas:
+    "image    image"
+    "headline headline"
+    "cta      logo";
+}
+.layout-sq-banner-top .ad-el-image { padding: 0; }
+.layout-sq-banner-top .ad-el-image img { border-radius: 0; }
+.layout-sq-banner-top .ad-el-headline {
+  font-size: calc(var(--ad-size-headline) * 1.3);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.layout-sq-banner-top .ad-el-cta { justify-content: flex-start; }
+.layout-sq-banner-top .ad-el-logo { justify-content: flex-end; }

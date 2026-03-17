@@ -183,3 +183,95 @@
 .layout-hz-banded .ad-el-headline { align-items: center; padding-top: 12px; }
 .layout-hz-banded .ad-el-subheadline { align-items: center; padding-top: 12px; }
 .layout-hz-banded .ad-el-cta { justify-content: center; }
+
+
+/* ── 11. Duo Thirds ──────────────────────────────────────────────
+   Three columns: image left, headline+CTA center, image2 right. */
+
+.layout-hz-duo-thirds {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "image headline image2"
+    "image cta      image2";
+}
+.layout-hz-duo-thirds .ad-el-image { padding: 0; }
+.layout-hz-duo-thirds .ad-el-image img { border-radius: 0; }
+.layout-hz-duo-thirds .ad-el-headline { text-align: center; justify-content: center; align-items: flex-end; }
+.layout-hz-duo-thirds .ad-el-cta { justify-content: center; }
+
+
+/* ── 12. Gradient Left ───────────────────────────────────────────
+   OVERLAY LAYOUT — full-bleed image with gradient from left.
+   Text on left side, image shows through on right. */
+
+.layout-hz-gradient-left {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "logo        ."
+    "headline    ."
+    "subheadline ."
+    "cta         .";
+}
+.layout-hz-gradient-left .ad-el-headline { color: #fff; align-items: flex-end; }
+.layout-hz-gradient-left .ad-el-subheadline { color: rgba(255, 255, 255, 0.8); }
+.layout-hz-gradient-left .ad-el-cta { justify-content: flex-start; }
+.layout-hz-gradient-left .ad-el-logo img { filter: brightness(0) invert(1); }
+
+
+/* ── 13. Split Half ──────────────────────────────────────────────
+   Clean 50/50 split. Image left half, text stacked right half. */
+
+.layout-hz-split-half {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "image logo"
+    "image headline"
+    "image subheadline"
+    "image cta";
+}
+.layout-hz-split-half .ad-el-image { padding: 0; }
+.layout-hz-split-half .ad-el-image img { border-radius: 0; }
+.layout-hz-split-half .ad-el-headline { align-items: flex-end; padding-left: 8px; }
+.layout-hz-split-half .ad-el-subheadline { padding-left: 8px; }
+.layout-hz-split-half .ad-el-cta { justify-content: flex-start; padding-left: 8px; }
+.layout-hz-split-half .ad-el-logo { justify-content: flex-end; }
+
+
+/* ── 14. Panoramic ───────────────────────────────────────────────
+   Image top 55% full-width, text below in centered strip. */
+
+.layout-hz-panoramic {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 55fr auto auto auto;
+  grid-template-areas:
+    "image       image       image"
+    ".           headline    ."
+    ".           subheadline ."
+    ".           cta         .";
+}
+.layout-hz-panoramic .ad-el-image { padding: 0; }
+.layout-hz-panoramic .ad-el-image img { border-radius: 0; }
+.layout-hz-panoramic .ad-el-headline { text-align: center; justify-content: center; padding-top: 12px; }
+.layout-hz-panoramic .ad-el-subheadline { text-align: center; justify-content: center; }
+.layout-hz-panoramic .ad-el-cta { justify-content: center; }
+
+
+/* ── 15. Sidebar Accent ──────────────────────────────────────────
+   Thin accent stripe left, text column, image right 45%. */
+
+.layout-hz-sidebar-accent {
+  grid-template-columns: 48px 55fr 45fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "stripe headline    image"
+    "stripe subheadline image"
+    "stripe cta         image";
+  column-gap: 0;
+}
+.layout-hz-sidebar-accent .ad-el-image { padding: 0; }
+.layout-hz-sidebar-accent .ad-el-image img { border-radius: 0; }
+.layout-hz-sidebar-accent .ad-el-headline { align-items: flex-end; }
+.layout-hz-sidebar-accent .ad-el-cta { justify-content: flex-start; }

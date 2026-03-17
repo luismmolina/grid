@@ -20,9 +20,9 @@ import {
 // ---------------------------------------------------------------------------
 
 export const SAFE_ZONES = {
-  square:     { top: 64,  right: 64, bottom: 200, left: 64  },
-  vertical:   { top: 200, right: 80, bottom: 300, left: 48  },
-  horizontal: { top: 48,  right: 48, bottom: 100, left: 48  },
+  square:     { top: 100, right: 100, bottom: 100, left: 100 },
+  vertical:   { top: 270, right: 65,  bottom: 400, left: 65  },
+  horizontal: { top: 60,  right: 60,  bottom: 100, left: 60  },
 };
 
 export const PROPORTION_RULES = {

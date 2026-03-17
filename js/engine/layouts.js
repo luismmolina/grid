@@ -30,6 +30,11 @@ export const LAYOUTS = {
     layout('sq-editorial',    'Editorial Asymmetric', ['logo', 'image', 'headline', 'subheadline', 'cta'], false, null,             0.5),
     layout('sq-minimal',      'Minimal Breathe',  ['image', 'headline', 'subheadline', 'cta'],          false, null,              0.15),
     layout('sq-billboard',    'Billboard',         ['headline', 'subheadline', 'image', 'cta'],          false, null,              0.35),
+    layout('sq-duo-showcase', 'Duo Showcase',      ['image', 'image2', 'headline', 'cta'],                false, null,              0.60),
+    layout('sq-dark-overlay', 'Dark Overlay',      ['image', 'logo', 'headline', 'cta'],                  true,  'dark',            0.65),
+    layout('sq-diagonal',     'Diagonal',          ['image', 'headline', 'subheadline', 'cta'],           false, null,              0.55),
+    layout('sq-card',         'Card',              ['image', 'headline', 'subheadline', 'cta'],           false, null,              0.40),
+    layout('sq-banner-top',   'Banner Top',        ['image', 'headline', 'cta', 'logo'],                  false, null,              0.35),
   ],
 
   vertical: [
@@ -43,6 +48,11 @@ export const LAYOUTS = {
     layout('vt-split-contrast',  'Split Contrast',   ['logo', 'headline', 'cta', 'image'],                                    false, null,              0.5),
     layout('vt-cascade',         'Cascade',          ['logo', 'image', 'headline', 'subheadline', 'cta'],                      false, null,              0.35),
     layout('vt-magazine',        'Magazine Editorial', ['logo', 'image', 'headline', 'subheadline', 'cta'],                     false, null,              0.5),
+    layout('vt-duo-stack',       'Duo Stack',          ['image', 'image2', 'headline', 'cta'],                                    false, null,              0.60),
+    layout('vt-dark-immersive',  'Dark Immersive',     ['image', 'logo', 'headline', 'offer', 'cta'],                             true,  'dark',            0.65),
+    layout('vt-card-float',      'Card Float',         ['image', 'headline', 'subheadline', 'cta'],                               false, null,              0.55),
+    layout('vt-top-heavy',       'Top Heavy',          ['image', 'headline', 'subheadline', 'cta'],                               false, null,              0.65),
+    layout('vt-split-duo',       'Split Duo',          ['image', 'image2', 'headline', 'cta'],                                    false, null,              0.55),
   ],
 
   horizontal: [
@@ -56,6 +66,11 @@ export const LAYOUTS = {
     layout('hz-minimal-strip',  'Minimal Strip',  ['image', 'headline', 'cta'],                                false, null,             0.25),
     layout('hz-power-right',    'Power Right',    ['image', 'logo', 'headline', 'subheadline', 'cta'],         false, null,             0.6),
     layout('hz-banded',         'Banded',         ['image', 'headline', 'subheadline', 'cta'],                 false, null,             0.4),
+    layout('hz-duo-thirds',     'Duo Thirds',     ['image', 'headline', 'cta', 'image2'],                   false, null,             0.55),
+    layout('hz-gradient-left',  'Gradient Left',  ['image', 'logo', 'headline', 'subheadline', 'cta'],      true,  'gradient-left',  0.65),
+    layout('hz-split-half',     'Split Half',     ['image', 'logo', 'headline', 'subheadline', 'cta'],      false, null,             0.50),
+    layout('hz-panoramic',      'Panoramic',      ['image', 'headline', 'subheadline', 'cta'],               false, null,             0.55),
+    layout('hz-sidebar-accent', 'Sidebar Accent', ['stripe', 'image', 'headline', 'subheadline', 'cta'],    false, null,             0.45),
   ],
 };
 

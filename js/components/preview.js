@@ -132,11 +132,19 @@ export class Preview {
   _buildOverlayLayout(canvas, layout, content, palette) {
     if (content.image) {
       const bg = document.createElement('img');
-      bg.src = content.image;
+      const imgData = typeof content.image === 'object' ? content.image : { url: content.image };
+      bg.src = imgData.url;
       bg.alt = '';
+      let fx = imgData.focalX ?? 50;
+      let fy = imgData.focalY ?? 33;
+      if (imgData.focalX2 != null && imgData.focalY2 != null) {
+        fx = Math.round((fx + imgData.focalX2) / 2);
+        fy = Math.round((fy + imgData.focalY2) / 2);
+      }
       Object.assign(bg.style, {
         position: 'absolute', inset: '0',
         width: '100%', height: '100%', objectFit: 'cover',
+        objectPosition: `${fx}% ${fy}%`,
       });
       canvas.appendChild(bg);
     }
@@ -198,7 +206,18 @@ export class Preview {
     const wrap = document.createElement('div');
     wrap.className = className;
     const img = document.createElement('img');
-    img.src = src;
+    if (typeof src === 'object' && src.url) {
+      img.src = src.url;
+      let fx = src.focalX ?? 50;
+      let fy = src.focalY ?? 33;
+      if (src.focalX2 != null && src.focalY2 != null) {
+        fx = Math.round((fx + src.focalX2) / 2);
+        fy = Math.round((fy + src.focalY2) / 2);
+      }
+      img.style.objectPosition = `${fx}% ${fy}%`;
+    } else {
+      img.src = src;
+    }
     img.alt = '';
     wrap.appendChild(img);
     return wrap;

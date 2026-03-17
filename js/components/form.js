@@ -1,6 +1,8 @@
 const MAX_IMAGES = 10;
 const MAX_TEXT_ITEMS = 10;
 const STORAGE_KEY = 'gridads-form-state';
+const DEFAULT_FOCAL_X = 50;
+const DEFAULT_FOCAL_Y = 33;
 
 const PLACEHOLDERS = {
   headline: 'e.g. Transform Your Morning Routine',
@@ -89,7 +91,18 @@ export class InputForm {
 
   getAssets() {
     return {
-      images: this._images.map((i) => i.dataURL),
+      images: this._images.map((i) => {
+        const img = {
+          url: i.dataURL,
+          focalX: i.focalX ?? DEFAULT_FOCAL_X,
+          focalY: i.focalY ?? DEFAULT_FOCAL_Y,
+        };
+        if (i.focalX2 != null && i.focalY2 != null) {
+          img.focalX2 = i.focalX2;
+          img.focalY2 = i.focalY2;
+        }
+        return img;
+      }),
       logo: this._logo,
       headlines: this._collectList(this._textLists.headlines),
       subheadlines: this._collectList(this._textLists.subheadlines),
@@ -124,7 +137,14 @@ export class InputForm {
       if (!file.type.startsWith('image/')) return;
       const reader = new FileReader();
       reader.onload = () => {
-        const entry = { dataURL: reader.result, file };
+        const entry = {
+          dataURL: reader.result,
+          file,
+          focalX: DEFAULT_FOCAL_X,
+          focalY: DEFAULT_FOCAL_Y,
+          focalX2: null,
+          focalY2: null,
+        };
         this._images.push(entry);
         this._renderImagePreviews();
         this._scheduleSave();
@@ -143,17 +163,67 @@ export class InputForm {
       img.src = entry.dataURL;
       img.alt = `Image ${idx + 1}`;
 
+      // Primary focal point dot (red)
+      const dot1 = document.createElement('div');
+      dot1.className = 'image-upload__focal-dot';
+      dot1.style.left = `${entry.focalX ?? DEFAULT_FOCAL_X}%`;
+      dot1.style.top = `${entry.focalY ?? DEFAULT_FOCAL_Y}%`;
+
+      // Secondary focal point dot (orange) — hidden until set
+      const dot2 = document.createElement('div');
+      dot2.className = 'image-upload__focal-dot image-upload__focal-dot--secondary';
+      if (entry.focalX2 != null && entry.focalY2 != null) {
+        dot2.style.left = `${entry.focalX2}%`;
+        dot2.style.top = `${entry.focalY2}%`;
+      } else {
+        dot2.style.display = 'none';
+      }
+
+      // Click logic: 1st click = primary, 2nd = secondary, 3rd = reset to new primary
+      thumb.addEventListener('click', (e) => {
+        if (e.target.closest('.image-upload__thumb-remove')) return;
+        const rect = thumb.getBoundingClientRect();
+        const x = Math.max(0, Math.min(100, Math.round(((e.clientX - rect.left) / rect.width) * 100)));
+        const y = Math.max(0, Math.min(100, Math.round(((e.clientY - rect.top) / rect.height) * 100)));
+
+        if (entry.focalX2 != null) {
+          // Already has two points → reset: new click becomes primary, clear secondary
+          entry.focalX = x;
+          entry.focalY = y;
+          entry.focalX2 = null;
+          entry.focalY2 = null;
+          dot1.style.left = `${x}%`;
+          dot1.style.top = `${y}%`;
+          dot2.style.display = 'none';
+        } else if (entry.focalX !== DEFAULT_FOCAL_X || entry.focalY !== DEFAULT_FOCAL_Y) {
+          // Has a custom primary → set secondary
+          entry.focalX2 = x;
+          entry.focalY2 = y;
+          dot2.style.left = `${x}%`;
+          dot2.style.top = `${y}%`;
+          dot2.style.display = '';
+        } else {
+          // Default state → set primary
+          entry.focalX = x;
+          entry.focalY = y;
+          dot1.style.left = `${x}%`;
+          dot1.style.top = `${y}%`;
+        }
+        this._scheduleSave();
+      });
+
       const btn = document.createElement('button');
       btn.className = 'image-upload__thumb-remove';
       btn.textContent = '×';
       btn.title = 'Remove';
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         this._images.splice(idx, 1);
         this._renderImagePreviews();
         this._scheduleSave();
       });
 
-      thumb.append(img, btn);
+      thumb.append(img, dot1, dot2, btn);
       this._imagePreviews.appendChild(thumb);
     });
   }
@@ -346,7 +416,13 @@ export class InputForm {
 
   _saveState() {
     const state = {
-      images: this._images.map((i) => ({ dataURL: i.dataURL })),
+      images: this._images.map((i) => ({
+        dataURL: i.dataURL,
+        focalX: i.focalX ?? DEFAULT_FOCAL_X,
+        focalY: i.focalY ?? DEFAULT_FOCAL_Y,
+        focalX2: i.focalX2 ?? null,
+        focalY2: i.focalY2 ?? null,
+      })),
       logo: this._logo,
       textLists: {
         headlines: this._collectList(this._textLists.headlines),
@@ -381,7 +457,14 @@ export class InputForm {
 
     // Restore images
     if (state.images?.length) {
-      this._images = state.images.map((i) => ({ dataURL: i.dataURL, file: null }));
+      this._images = state.images.map((i) => ({
+        dataURL: i.dataURL,
+        file: null,
+        focalX: i.focalX ?? DEFAULT_FOCAL_X,
+        focalY: i.focalY ?? DEFAULT_FOCAL_Y,
+        focalX2: i.focalX2 ?? null,
+        focalY2: i.focalY2 ?? null,
+      }));
       this._renderImagePreviews();
     }
 

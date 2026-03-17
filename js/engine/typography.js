@@ -82,7 +82,7 @@ export const FONT_PAIRINGS = [
     name: 'Statement Serif',
     headline: "'Cormorant Garamond', Georgia, serif",
     body: "'Inter', system-ui, sans-serif",
-    headlineWeight: 600,
+    headlineWeight: 700,
     bodyWeight: 400,
     ctaWeight: 600,
     headlineTracking: '0',
@@ -106,9 +106,9 @@ export const FONT_PAIRINGS = [
 ];
 
 export const TYPE_SCALES = {
-  square:     { headline: 84, subheadline: 32, cta: 24, small: 18, offer: 20 },
-  vertical:   { headline: 96, subheadline: 36, cta: 28, small: 20, offer: 22 },
-  horizontal: { headline: 56, subheadline: 24, cta: 20, small: 14, offer: 16 },
+  square:     { headline: 88,  subheadline: 36, cta: 32, small: 24, offer: 28 },
+  vertical:   { headline: 104, subheadline: 42, cta: 36, small: 28, offer: 32 },
+  horizontal: { headline: 60,  subheadline: 28, cta: 24, small: 18, offer: 22 },
 };
 
 export function applyTypography(canvasElement, pairing, format) {

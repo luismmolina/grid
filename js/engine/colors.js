@@ -231,6 +231,111 @@ function textColorOn(bgRgb) {
   return contrastRatio(bgRgb, white) >= contrastRatio(bgRgb, black) ? white : black;
 }
 
+// ── HSL color-theory helpers ──────────────────────────────────────
+
+function rgbToHsl({ r, g, b }) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return { h: 0, s: 0, l };
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h;
+  if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+  else if (max === g) h = ((b - r) / d + 2) / 6;
+  else h = ((r - g) / d + 4) / 6;
+  return { h: h * 360, s, l };
+}
+
+function hslToRgb({ h, s, l }) {
+  h = ((h % 360) + 360) % 360;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let r, g, b;
+  if (h < 60)       { r = c; g = x; b = 0; }
+  else if (h < 120) { r = x; g = c; b = 0; }
+  else if (h < 180) { r = 0; g = c; b = x; }
+  else if (h < 240) { r = 0; g = x; b = c; }
+  else if (h < 300) { r = x; g = 0; b = c; }
+  else              { r = c; g = 0; b = x; }
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255),
+  };
+}
+
+function rotateHue(hex, degrees) {
+  const hsl = rgbToHsl(hexToRgb(hex));
+  hsl.h = (hsl.h + degrees) % 360;
+  return rgbToHex(hslToRgb(hsl));
+}
+
+function setLightness(hex, newL) {
+  const hsl = rgbToHsl(hexToRgb(hex));
+  hsl.l = Math.max(0, Math.min(1, newL));
+  return rgbToHex(hslToRgb(hsl));
+}
+
+/**
+ * Generate 8 brand palette variations from user-supplied brand colors.
+ * Each variation uses at least one brand color in a prominent role,
+ * combined with color-theory harmonies for variety.
+ */
+export function generateBrandVariations(primary, secondary, accent) {
+  const variations = [];
+
+  // 1. Original brand palette (direct)
+  variations.push(createBrandPalette(primary, secondary, accent));
+  variations[0].name = "Brand Original";
+  variations[0].id = "brand-original";
+
+  // 2. Complementary: swap secondary for primary's complement
+  const complement = rotateHue(primary, 180);
+  variations.push(createBrandPalette(primary, complement, accent));
+  variations[1].name = "Brand Complement";
+  variations[1].id = "brand-complement";
+
+  // 3. Analogous warm: secondary shifted +30° from primary
+  const analogousWarm = rotateHue(primary, 30);
+  variations.push(createBrandPalette(primary, analogousWarm, accent));
+  variations[2].name = "Brand Analogous Warm";
+  variations[2].id = "brand-analogous-warm";
+
+  // 4. Analogous cool: secondary shifted -30° from primary
+  const analogousCool = rotateHue(primary, -30);
+  variations.push(createBrandPalette(primary, analogousCool, accent));
+  variations[3].name = "Brand Analogous Cool";
+  variations[3].id = "brand-analogous-cool";
+
+  // 5. Triadic: secondary and accent from triadic positions
+  const tri1 = rotateHue(primary, 120);
+  const tri2 = rotateHue(primary, 240);
+  variations.push(createBrandPalette(primary, tri1, tri2));
+  variations[4].name = "Brand Triadic";
+  variations[4].id = "brand-triadic";
+
+  // 6. Role swap: accent becomes primary, primary becomes accent
+  variations.push(createBrandPalette(accent, secondary, primary));
+  variations[5].name = "Brand Swap";
+  variations[5].id = "brand-swap";
+
+  // 7. Light variant: same hues but forced light surface
+  const lightPrimary = setLightness(primary, 0.25);
+  variations.push(createBrandPalette(lightPrimary, secondary, accent));
+  variations[6].name = "Brand Light";
+  variations[6].id = "brand-light";
+
+  // 8. Dark variant: same hues but forced dark surface
+  const darkPrimary = setLightness(primary, 0.12);
+  variations.push(createBrandPalette(darkPrimary, secondary, accent));
+  variations[7].name = "Brand Dark";
+  variations[7].id = "brand-dark";
+
+  return variations;
+}
+
 /**
  * Generate a full palette from brand colors (primary, secondary, accent).
  *
