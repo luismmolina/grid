@@ -1,6 +1,7 @@
 import { applyPalette } from '../engine/colors.js';
 import { applyTypography, applyBrandFont } from '../engine/typography.js';
 import { getOverlayCSS, validateDesign } from '../engine/rules.js';
+import { fitTextElements } from '../utils/text-fit.js';
 
 const FORMATS = {
   square:     { width: 1080, height: 1080, aspect: 1 },
@@ -164,7 +165,10 @@ export class Gallery {
     }
 
     container.appendChild(canvas);
-    requestAnimationFrame(() => this._fitTextElements(canvas));
+    requestAnimationFrame(() => {
+      this._fitTextElements(canvas);
+      document.fonts?.ready?.then(() => this._fitTextElements(canvas));
+    });
   }
 
   _buildOverlayLayout(canvas, layout, content, palette) {
@@ -275,7 +279,9 @@ export class Gallery {
     if (!text) return null;
     const div = document.createElement('div');
     div.className = className;
-    div.textContent = text;
+    const span = document.createElement('span');
+    span.textContent = text;
+    div.appendChild(span);
     return div;
   }
 
@@ -312,26 +318,6 @@ export class Gallery {
    * Called after the ad DOM is built and appended.
    */
   _fitTextElements(canvas) {
-    for (const selector of ['.ad-el-headline', '.ad-el-subheadline']) {
-      const el = canvas.querySelector(selector);
-      if (!el) continue;
-
-      const computedStyle = getComputedStyle(el);
-      let fontSize = parseFloat(computedStyle.fontSize);
-      if (!fontSize || fontSize <= 0) continue;
-
-      const minFontSize = fontSize * 0.4;
-      let iterations = 0;
-
-      while (fontSize > minFontSize && iterations < 15) {
-        if (el.scrollHeight <= el.clientHeight + 2 &&
-            el.scrollWidth <= el.clientWidth + 2) {
-          break;
-        }
-        fontSize *= 0.9;
-        el.style.fontSize = `${fontSize}px`;
-        iterations++;
-      }
-    }
+    fitTextElements(canvas);
   }
 }

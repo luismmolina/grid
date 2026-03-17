@@ -21,7 +21,7 @@ import {
 
 export const SAFE_ZONES = {
   square:     { top: 100, right: 100, bottom: 100, left: 100 },
-  vertical:   { top: 270, right: 65,  bottom: 400, left: 65  },
+  vertical:   { top: 270, right: 65,  bottom: 300, left: 65  },
   horizontal: { top: 60,  right: 60,  bottom: 100, left: 60  },
 };
 
@@ -64,7 +64,7 @@ export function adjustForOverlay(palette, overlayType) {
     subheadlineColor = palette.secondary;
   }
 
-  const subheadlineOpacity = dark ? 0.85 : 1;
+  const subheadlineOpacity = dark ? 0.95 : 1;
 
   return { ...palette, headlineColor, subheadlineColor, subheadlineOpacity };
 }

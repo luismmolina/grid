@@ -3,237 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GridAds — Algorithmic Ad Design Generator</title>
-
-  <!-- Google Fonts -->
+  <title>GridAds — AI Ad Design Generator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,600&family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/layouts-square.css">
-  <link rel="stylesheet" href="css/layouts-vertical.css">
-  <link rel="stylesheet" href="css/layouts-horizontal.css">
 </head>
 <body>
   <div id="app">
-    <!-- Header -->
-    <header class="app-header">
-      <div class="app-header__logo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <rect x="2" y="2" width="10" height="10" rx="2" fill="var(--ui-accent)"/>
-          <rect x="16" y="2" width="10" height="10" rx="2" fill="var(--ui-accent)" opacity="0.6"/>
-          <rect x="2" y="16" width="10" height="10" rx="2" fill="var(--ui-accent)" opacity="0.6"/>
-          <rect x="16" y="16" width="10" height="10" rx="2" fill="var(--ui-accent)" opacity="0.3"/>
-        </svg>
-        <span>GridAds</span>
-      </div>
-      <nav class="app-header__nav">
-        <button class="btn btn--ghost" id="btn-how">How it works</button>
-      </nav>
-    </header>
-
-    <!-- Main Content -->
     <main class="app-main">
-      <!-- Input Panel (Left Side) -->
-      <aside class="input-panel" id="input-panel">
-        <div class="input-panel__scroll">
-          <h2 class="input-panel__title">Your Assets</h2>
+      <!-- Left Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar__brand">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+            <rect x="2" y="2" width="10" height="10" rx="2" fill="#6366f1"/>
+            <rect x="16" y="2" width="10" height="10" rx="2" fill="#6366f1" opacity="0.6"/>
+            <rect x="2" y="16" width="10" height="10" rx="2" fill="#6366f1" opacity="0.6"/>
+            <rect x="16" y="16" width="10" height="10" rx="2" fill="#6366f1" opacity="0.3"/>
+          </svg>
+          <span>GridAds <em>AI</em></span>
+        </div>
 
-          <!-- Images -->
-          <section class="input-section">
-            <label class="input-label">
-              Images <span class="input-hint">(1–10, drag & drop)</span>
-            </label>
-            <div class="image-upload" id="image-upload">
-              <div class="image-upload__dropzone" id="image-dropzone">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
-                  <path d="M21 15l-5-5L5 21"/>
-                </svg>
+        <div class="sidebar__scroll">
+          <!-- Business Context — single textarea -->
+          <section class="panel" id="panel-business">
+            <button class="panel__header" data-panel="business">
+              <span>📋 Business Context</span>
+              <svg class="panel__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="panel__body" data-panel-body="business">
+              <textarea class="field-textarea" id="biz-context" rows="6" placeholder="Describe your business, brand colors, tone, audience, product details... The AI will extract what it needs.&#10;&#10;Example: We are &quot;Urban Bistro&quot;, a modern Mexican restaurant. Colors: deep red #8B0000, cream #FFF8DC, gold accents. Tone: warm, inviting. Audience: foodies 25-45."></textarea>
+              <button class="btn btn--sm btn--primary" id="btn-save-business">💾 Save</button>
+            </div>
+          </section>
+
+          <!-- Image Library -->
+          <section class="panel" id="panel-images">
+            <button class="panel__header" data-panel="images">
+              <span>📸 Images</span>
+              <svg class="panel__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="panel__body" data-panel-body="images">
+              <div class="dropzone" id="image-dropzone">
                 <span>Drop images or click to upload</span>
                 <input type="file" id="image-input" accept="image/*" multiple hidden>
               </div>
-              <div class="image-upload__previews" id="image-previews"></div>
+              <div class="image-grid" id="image-grid"></div>
             </div>
           </section>
 
-          <!-- Logo -->
-          <section class="input-section">
-            <label class="input-label">Logo</label>
-            <div class="logo-upload" id="logo-upload">
-              <div class="logo-upload__dropzone" id="logo-dropzone">
-                <span>Upload logo</span>
-                <input type="file" id="logo-input" accept="image/*" hidden>
-              </div>
-              <div class="logo-upload__preview" id="logo-preview"></div>
-            </div>
-          </section>
-
-          <!-- Headlines -->
-          <section class="input-section">
-            <label class="input-label">Headlines <span class="input-hint">(1–10)</span></label>
-            <div class="text-list" id="headlines-list">
-              <div class="text-list__item">
-                <input type="text" placeholder="e.g. Transform Your Morning Routine" class="text-input" data-field="headline">
-                <button class="btn-icon btn-icon--remove" title="Remove">×</button>
-              </div>
-            </div>
-            <button class="btn btn--text btn--add" data-target="headlines-list" data-field="headline">+ Add headline</button>
-          </section>
-
-          <!-- Subheadlines -->
-          <section class="input-section">
-            <label class="input-label">Subheadlines <span class="input-hint">(1–10)</span></label>
-            <div class="text-list" id="subheadlines-list">
-              <div class="text-list__item">
-                <input type="text" placeholder="e.g. Join 50,000+ happy customers" class="text-input" data-field="subheadline">
-                <button class="btn-icon btn-icon--remove" title="Remove">×</button>
-              </div>
-            </div>
-            <button class="btn btn--text btn--add" data-target="subheadlines-list" data-field="subheadline">+ Add subheadline</button>
-          </section>
-
-          <!-- CTAs -->
-          <section class="input-section">
-            <label class="input-label">CTAs <span class="input-hint">(1–10)</span></label>
-            <div class="text-list" id="ctas-list">
-              <div class="text-list__item">
-                <input type="text" placeholder="e.g. Shop Now" class="text-input" data-field="cta">
-                <button class="btn-icon btn-icon--remove" title="Remove">×</button>
-              </div>
-            </div>
-            <button class="btn btn--text btn--add" data-target="ctas-list" data-field="cta">+ Add CTA</button>
-          </section>
-
-          <!-- Social Proof (optional) -->
-          <section class="input-section">
-            <label class="input-label">Social Proof <span class="input-hint">(optional)</span></label>
-            <div class="text-list" id="social-proof-list">
-              <div class="text-list__item">
-                <input type="text" placeholder="e.g. ★ 4.9 — 10K+ reviews" class="text-input" data-field="socialProof">
-                <button class="btn-icon btn-icon--remove" title="Remove">×</button>
-              </div>
-            </div>
-            <button class="btn btn--text btn--add" data-target="social-proof-list" data-field="socialProof">+ Add social proof</button>
-          </section>
-
-          <!-- Offer / Urgency (optional) -->
-          <section class="input-section">
-            <label class="input-label">Offer / Urgency <span class="input-hint">(optional)</span></label>
-            <div class="text-list" id="offer-list">
-              <div class="text-list__item">
-                <input type="text" placeholder="e.g. 50% OFF — Ends Sunday" class="text-input" data-field="offer">
-                <button class="btn-icon btn-icon--remove" title="Remove">×</button>
-              </div>
-            </div>
-            <button class="btn btn--text btn--add" data-target="offer-list" data-field="offer">+ Add offer</button>
-          </section>
-
-          <!-- Settings -->
-          <section class="input-section input-section--settings">
-            <label class="input-label">Settings</label>
-
-            <!-- Formats -->
-            <div class="setting-group">
-              <span class="setting-label">Formats</span>
-              <div class="checkbox-group">
-                <label class="checkbox">
-                  <input type="checkbox" id="fmt-square" checked> 1:1 Instagram
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" id="fmt-vertical" checked> 9:16 Story/TikTok
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" id="fmt-horizontal" checked> 1.91:1 Facebook
-                </label>
-              </div>
-            </div>
-
-            <!-- Brand Identity -->
-            <div class="setting-group">
-              <span class="setting-label">Brand Identity <span class="input-hint">(optional, overrides palettes &amp; fonts)</span></span>
-              <div class="color-inputs">
-                <div class="color-input">
-                  <input type="color" id="brand-primary" value="#6366f1">
-                  <label for="brand-primary">Primary (60%)</label>
-                </div>
-                <div class="color-input">
-                  <input type="color" id="brand-secondary" value="#a5b4fc">
-                  <label for="brand-secondary">Secondary (30%)</label>
-                </div>
-                <div class="color-input">
-                  <input type="color" id="brand-accent" value="#f43f5e">
-                  <label for="brand-accent">Accent (10%)</label>
-                </div>
-              </div>
-              <div style="margin-top: 8px;">
-                <label class="input-label" style="margin-bottom: 4px; font-size: 0.75rem;">Brand Font</label>
-                <input type="text" class="text-input" id="brand-font" placeholder="e.g. Poppins" value="">
-              </div>
-              <label class="checkbox" style="margin-top: 8px;">
-                <input type="checkbox" id="use-brand-colors"> Use brand identity
-              </label>
+          <!-- Inspiration Templates — single code area -->
+          <section class="panel" id="panel-inspiration">
+            <button class="panel__header" data-panel="inspiration">
+              <span>✨ Inspiration Code</span>
+              <svg class="panel__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="panel__body" data-panel-body="inspiration">
+              <textarea class="field-code" id="template-code" rows="8" placeholder="Paste HTML+CSS of ads you like. The AI will adapt them to every format."></textarea>
+              <button class="btn btn--sm btn--primary" id="btn-save-template">💾 Save Template</button>
+              <div class="template-list" id="template-list"></div>
             </div>
           </section>
         </div>
 
-        <!-- Generate Button -->
-        <div class="input-panel__actions">
+        <!-- Generate -->
+        <div class="sidebar__actions">
+          <div class="format-checks">
+            <label class="format-check"><input type="checkbox" value="square" checked><span>1:1</span></label>
+            <label class="format-check"><input type="checkbox" value="vertical"><span>9:16</span></label>
+            <label class="format-check"><input type="checkbox" value="portrait"><span>4:5</span></label>
+          </div>
           <button class="btn btn--primary btn--generate" id="btn-generate">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
-            </svg>
-            Generate Variants
-          </button>
-          <button class="btn btn--ghost btn--sm" id="btn-clear-all" style="margin-top: 8px; width: 100%; color: var(--ui-text-tertiary);">
-            Clear All
+            🔮 Generate Variants
           </button>
         </div>
       </aside>
 
-      <!-- Gallery / Preview Area (Right Side) -->
+      <!-- Content Area -->
       <section class="content-area" id="content-area">
-        <!-- Empty State -->
-        <div class="empty-state" id="empty-state">
-          <div class="empty-state__icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-              <rect x="3" y="3" width="7" height="7" rx="1"/>
-              <rect x="14" y="3" width="7" height="7" rx="1"/>
-              <rect x="3" y="14" width="7" height="7" rx="1"/>
-              <rect x="14" y="14" width="7" height="7" rx="1"/>
-            </svg>
-          </div>
-          <h2>Add your assets and hit Generate</h2>
-          <p>Upload images, write headlines & CTAs, then watch the magic happen.</p>
+        <!-- Loading State (overlays gallery) -->
+        <div class="loading-overlay" id="loading-state" hidden>
+          <div class="spinner"></div>
+          <p>AI is designing...</p>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="gallery" id="gallery" hidden>
+        <!-- Gallery (always visible) -->
+        <div class="gallery" id="gallery">
           <div class="gallery__toolbar">
-            <div class="gallery__info">
-              <span id="variant-count">0</span> variants generated
-            </div>
-            <div class="gallery__actions">
-              <button class="btn btn--ghost btn--sm" id="btn-generate-more">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
-                </svg>
-                More Variants
-              </button>
-              <button class="btn btn--ghost btn--sm" id="btn-export-all">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                </svg>
-                Export Selected
-              </button>
-            </div>
+            <span><span id="variant-count">0</span> variants</span>
+            <button class="btn btn--ghost btn--sm" id="btn-clear-variants">Clear All</button>
           </div>
           <div class="gallery__grid" id="gallery-grid"></div>
+          <!-- Empty hint inside gallery -->
+          <div class="gallery__empty" id="gallery-empty">
+            <p>Upload images, describe your business, then hit <strong>Generate</strong></p>
+          </div>
         </div>
 
         <!-- Preview Modal -->
@@ -241,16 +106,12 @@
           <div class="preview-modal__backdrop" id="preview-backdrop"></div>
           <div class="preview-modal__content">
             <div class="preview-modal__header">
-              <span class="preview-modal__title" id="preview-title">Variant #1</span>
+              <span class="preview-modal__title" id="preview-title">Preview</span>
               <div class="preview-modal__actions">
-                <button class="btn btn--ghost btn--sm" id="btn-export-single">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                  </svg>
-                  Export PNG
-                </button>
-                <button class="btn btn--ghost btn--sm" id="btn-export-jpg">Export JPG</button>
-                <button class="btn-icon" id="btn-close-preview" title="Close">×</button>
+                <button class="btn btn--like" id="btn-preview-like" title="Like">❤️</button>
+                <button class="btn btn--dislike" id="btn-preview-dislike" title="Dislike">👎</button>
+                <button class="btn btn--ghost btn--sm" id="btn-export-png">📥 Export PNG</button>
+                <button class="btn-close" id="btn-close-preview">&times;</button>
               </div>
             </div>
             <div class="preview-modal__body" id="preview-body"></div>
@@ -260,11 +121,6 @@
     </main>
   </div>
 
-  <!-- Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.4.5/dist/dom-to-image-more.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-  <!-- App Modules -->
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

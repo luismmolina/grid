@@ -39,17 +39,17 @@ export const FONT_PAIRINGS = [
     mood: 'modern',
   },
   {
-    id: 'luxury-classic',
-    name: 'Luxury Classic',
-    headline: "'Playfair Display', Georgia, serif",
-    body: "'Cormorant Garamond', Georgia, serif",
-    headlineWeight: 900,
+    id: 'casual-punch',
+    name: 'Casual Punch',
+    headline: "'Outfit', system-ui, sans-serif",
+    body: "'Inter', system-ui, sans-serif",
+    headlineWeight: 800,
     bodyWeight: 400,
-    ctaWeight: 600,
-    headlineTracking: '-0.03em',
-    headlineTransform: 'none',
+    ctaWeight: 700,
+    headlineTracking: '0',
+    headlineTransform: 'uppercase',
     ctaTransform: 'uppercase',
-    mood: 'elegant',
+    mood: 'bold',
   },
   {
     id: 'friendly-geo',
@@ -78,17 +78,17 @@ export const FONT_PAIRINGS = [
     mood: 'clean',
   },
   {
-    id: 'statement-serif',
-    name: 'Statement Serif',
-    headline: "'Cormorant Garamond', Georgia, serif",
-    body: "'Inter', system-ui, sans-serif",
-    headlineWeight: 700,
+    id: 'street-bold',
+    name: 'Street Bold',
+    headline: "'Bebas Neue', Impact, sans-serif",
+    body: "'Sora', system-ui, sans-serif",
+    headlineWeight: 400,
     bodyWeight: 400,
-    ctaWeight: 600,
-    headlineTracking: '0',
-    headlineTransform: 'none',
+    ctaWeight: 700,
+    headlineTracking: '0.05em',
+    headlineTransform: 'uppercase',
     ctaTransform: 'uppercase',
-    mood: 'elegant',
+    mood: 'bold',
   },
   {
     id: 'power-sans',
@@ -105,10 +105,32 @@ export const FONT_PAIRINGS = [
   },
 ];
 
+const FONT_PAIRING_META = {
+  "editorial-serif": { restaurantSafe: false, restaurantBoost: 0.58 },
+  "bold-impact":     { restaurantSafe: true,  restaurantBoost: 1.02 },
+  "modern-clean":    { restaurantSafe: true,  restaurantBoost: 1.04 },
+  "casual-punch":    { restaurantSafe: true,  restaurantBoost: 1.16 },
+  "friendly-geo":    { restaurantSafe: true,  restaurantBoost: 1.10 },
+  "minimal-swiss":   { restaurantSafe: false, restaurantBoost: 0.72 },
+  "street-bold":     { restaurantSafe: true,  restaurantBoost: 1.12 },
+  "power-sans":      { restaurantSafe: true,  restaurantBoost: 1.08 },
+};
+
+function enrichPairing(pairing) {
+  return {
+    ...pairing,
+    ...(FONT_PAIRING_META[pairing.id] || { restaurantSafe: false, restaurantBoost: 0.8 }),
+  };
+}
+
+export const RESTAURANT_FONT_PAIRINGS = FONT_PAIRINGS
+  .filter((pairing) => FONT_PAIRING_META[pairing.id]?.restaurantSafe)
+  .map(enrichPairing);
+
 export const TYPE_SCALES = {
-  square:     { headline: 88,  subheadline: 36, cta: 32, small: 24, offer: 28 },
-  vertical:   { headline: 104, subheadline: 42, cta: 36, small: 28, offer: 32 },
-  horizontal: { headline: 60,  subheadline: 28, cta: 24, small: 18, offer: 22 },
+  square:     { headline: 88,  subheadline: 36, cta: 34, small: 24, offer: 30 },
+  vertical:   { headline: 104, subheadline: 42, cta: 38, small: 28, offer: 34 },
+  horizontal: { headline: 64,  subheadline: 30, cta: 28, small: 20, offer: 26 },
 };
 
 export function applyTypography(canvasElement, pairing, format) {

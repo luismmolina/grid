@@ -48,18 +48,18 @@ export const PALETTES = [
     offer: "#2a6b45",
     onOffer: "#e8f5ec",
   },
-  // 4 — Electric Violet: cool near-black surface, electric purple headline, hot pink CTA (tech/modern)
+  // 4 — Saffron Flame: warm cream surface, deep tomato red headline, vivid amber CTA (food/energy)
   {
-    id: "electric-violet",
-    name: "Electric Violet",
-    primary: "#a855f7",
-    secondary: "#7a6baa",
-    surface: "#0e0b1a",
-    onSurface: "#d8d0e8",
-    cta: "#d4206e",
-    onCta: "#ffffff",
-    offer: "#3a1a6b",
-    onOffer: "#e0d0f5",
+    id: "saffron-flame",
+    name: "Saffron Flame",
+    primary: "#c4301c",
+    secondary: "#d47a3a",
+    surface: "#fef7ed",
+    onSurface: "#3a1808",
+    cta: "#e8960a",
+    onCta: "#1a0e02",
+    offer: "#c4301c",
+    onOffer: "#ffffff",
   },
   // 5 — Coral Sunrise: light peach surface, deep coral headline, teal CTA (warm/energetic)
   {
@@ -113,17 +113,17 @@ export const PALETTES = [
     offer: "#2a2460",
     onOffer: "#dcd6f0",
   },
-  // 9 — Berry Pop: soft lavender surface, deep berry headline, chartreuse CTA (playful/creative)
+  // 9 — Fiesta Coral: light warm surface, vibrant coral headline, lime-green CTA (casual/playful)
   {
-    id: "berry-pop",
-    name: "Berry Pop",
-    primary: "#8a1a6a",
-    secondary: "#a854a0",
-    surface: "#f0e8f8",
-    onSurface: "#2a1028",
-    cta: "#6abf1a",
-    onCta: "#0a1a04",
-    offer: "#b82a8a",
+    id: "fiesta-coral",
+    name: "Fiesta Coral",
+    primary: "#d4422a",
+    secondary: "#e8845a",
+    surface: "#fff5f0",
+    onSurface: "#3a1410",
+    cta: "#2a8c2a",
+    onCta: "#ffffff",
+    offer: "#d4422a",
     onOffer: "#ffffff",
   },
   // 10 — Warm Espresso: rich dark brown surface, cream headline, burnt orange CTA (luxe/warm)
@@ -139,18 +139,18 @@ export const PALETTES = [
     offer: "#3a2810",
     onOffer: "#e8dcc8",
   },
-  // 11 — Steel & Cyan: cool gray surface, slate blue headline, bright cyan CTA (corporate/tech)
+  // 11 — Chipotle Smoke: warm dark surface, golden headline, bright red CTA (smoky/bold)
   {
-    id: "steel-cyan",
-    name: "Steel & Cyan",
-    primary: "#2a4a7a",
-    secondary: "#5a7a9a",
-    surface: "#e8ecf0",
-    onSurface: "#1a2a3a",
-    cta: "#00b8d4",
-    onCta: "#041a20",
-    offer: "#3a5a8a",
-    onOffer: "#e0eaf5",
+    id: "chipotle-smoke",
+    name: "Chipotle Smoke",
+    primary: "#f0c850",
+    secondary: "#c8a070",
+    surface: "#2a1a0e",
+    onSurface: "#e8d8c0",
+    cta: "#d93620",
+    onCta: "#ffffff",
+    offer: "#4a3018",
+    onOffer: "#f0d8b0",
   },
   // 12 — Mono Luxe: pure white surface, rich charcoal headline, warm black CTA (timeless/minimal)
   {
@@ -166,6 +166,32 @@ export const PALETTES = [
     onOffer: "#2d2d2d",
   },
 ];
+
+const PALETTE_META = {
+  "royal-navy":      { restaurantSafe: false, warmth: 0.18, restaurantBoost: 0.62 },
+  "crimson-edge":    { restaurantSafe: true,  warmth: 0.84, restaurantBoost: 1.08 },
+  "forest-amber":    { restaurantSafe: true,  warmth: 0.70, restaurantBoost: 1.00 },
+  "saffron-flame":   { restaurantSafe: true,  warmth: 0.98, restaurantBoost: 1.20 },
+  "coral-sunrise":   { restaurantSafe: true,  warmth: 0.86, restaurantBoost: 1.05 },
+  "ocean-breeze":    { restaurantSafe: false, warmth: 0.30, restaurantBoost: 0.70 },
+  "sage-terracotta": { restaurantSafe: true,  warmth: 0.74, restaurantBoost: 0.98 },
+  "indigo-dusk":     { restaurantSafe: false, warmth: 0.22, restaurantBoost: 0.66 },
+  "fiesta-coral":    { restaurantSafe: true,  warmth: 0.94, restaurantBoost: 1.14 },
+  "warm-espresso":   { restaurantSafe: true,  warmth: 0.90, restaurantBoost: 1.10 },
+  "chipotle-smoke":  { restaurantSafe: true,  warmth: 0.95, restaurantBoost: 1.18 },
+  "mono-luxe":       { restaurantSafe: false, warmth: 0.36, restaurantBoost: 0.74 },
+};
+
+function enrichPalette(palette) {
+  return {
+    ...palette,
+    ...(PALETTE_META[palette.id] || { restaurantSafe: false, warmth: 0.5, restaurantBoost: 0.8 }),
+  };
+}
+
+export const RESTAURANT_PALETTES = PALETTES
+  .filter((palette) => PALETTE_META[palette.id]?.restaurantSafe)
+  .map(enrichPalette);
 
 /**
  * Parse a hex color string into { r, g, b } (0-255).
@@ -285,53 +311,67 @@ function setLightness(hex, newL) {
  */
 export function generateBrandVariations(primary, secondary, accent) {
   const variations = [];
+  const safeSecondary = secondary || primary;
+  const safeAccent = accent || primary;
 
-  // 1. Original brand palette (direct)
-  variations.push(createBrandPalette(primary, secondary, accent));
-  variations[0].name = "Brand Original";
-  variations[0].id = "brand-original";
+  function pushVariation(id, name, palette, restaurantBoost = 1.05) {
+    palette.id = id;
+    palette.name = name;
+    palette.restaurantSafe = true;
+    palette.restaurantBoost = restaurantBoost;
+    variations.push(palette);
+  }
 
-  // 2. Complementary: swap secondary for primary's complement
-  const complement = rotateHue(primary, 180);
-  variations.push(createBrandPalette(primary, complement, accent));
-  variations[1].name = "Brand Complement";
-  variations[1].id = "brand-complement";
-
-  // 3. Analogous warm: secondary shifted +30° from primary
-  const analogousWarm = rotateHue(primary, 30);
-  variations.push(createBrandPalette(primary, analogousWarm, accent));
-  variations[2].name = "Brand Analogous Warm";
-  variations[2].id = "brand-analogous-warm";
-
-  // 4. Analogous cool: secondary shifted -30° from primary
-  const analogousCool = rotateHue(primary, -30);
-  variations.push(createBrandPalette(primary, analogousCool, accent));
-  variations[3].name = "Brand Analogous Cool";
-  variations[3].id = "brand-analogous-cool";
-
-  // 5. Triadic: secondary and accent from triadic positions
-  const tri1 = rotateHue(primary, 120);
-  const tri2 = rotateHue(primary, 240);
-  variations.push(createBrandPalette(primary, tri1, tri2));
-  variations[4].name = "Brand Triadic";
-  variations[4].id = "brand-triadic";
-
-  // 6. Role swap: accent becomes primary, primary becomes accent
-  variations.push(createBrandPalette(accent, secondary, primary));
-  variations[5].name = "Brand Swap";
-  variations[5].id = "brand-swap";
-
-  // 7. Light variant: same hues but forced light surface
-  const lightPrimary = setLightness(primary, 0.25);
-  variations.push(createBrandPalette(lightPrimary, secondary, accent));
-  variations[6].name = "Brand Light";
-  variations[6].id = "brand-light";
-
-  // 8. Dark variant: same hues but forced dark surface
-  const darkPrimary = setLightness(primary, 0.12);
-  variations.push(createBrandPalette(darkPrimary, secondary, accent));
-  variations[7].name = "Brand Dark";
-  variations[7].id = "brand-dark";
+  // Keep brand-driven variety, but avoid cold or arbitrary hue-wheel jumps
+  // that can make restaurant ads feel detached from the food.
+  pushVariation(
+    "brand-original",
+    "Brand Original",
+    createBrandPalette(primary, safeSecondary, safeAccent),
+    1.10,
+  );
+  pushVariation(
+    "brand-accent-swap",
+    "Brand Accent Swap",
+    createBrandPalette(primary, safeAccent, safeSecondary),
+    1.04,
+  );
+  pushVariation(
+    "brand-secondary-led",
+    "Brand Secondary Led",
+    createBrandPalette(safeSecondary, primary, safeAccent),
+    1.00,
+  );
+  pushVariation(
+    "brand-accent-led",
+    "Brand Accent Led",
+    createBrandPalette(safeAccent, primary, safeSecondary),
+    1.02,
+  );
+  pushVariation(
+    "brand-soft-secondary",
+    "Brand Soft Secondary",
+    createBrandPalette(primary, setLightness(safeSecondary, 0.38), safeAccent),
+    1.03,
+  );
+  pushVariation(
+    "brand-light",
+    "Brand Light",
+    createBrandPalette(setLightness(primary, 0.25), safeSecondary, safeAccent),
+    1.06,
+  );
+  pushVariation(
+    "brand-deep",
+    "Brand Deep",
+    createBrandPalette(setLightness(primary, 0.18), safeSecondary, safeAccent),
+    1.04,
+  );
+  pushVariation(
+    "brand-brighter-cta",
+    "Brand Brighter CTA",
+    createBrandPalette(primary, safeSecondary, setLightness(safeAccent, 0.48)),
+    1.08,
+  );
 
   return variations;
 }

@@ -42,12 +42,12 @@
    Three distinct columns: image left, text center, logo+CTA right. */
 
 .layout-hz-three-col {
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "image headline logo"
+    "image headline    logo"
     "image subheadline ."
-    "image .          cta";
+    "image offer       cta";
 }
 .layout-hz-three-col .ad-el-image { padding: 0; }
 .layout-hz-three-col .ad-el-image img { border-radius: 0; }
@@ -60,12 +60,13 @@
    Huge headline dominates left 65%. Image on right with rounded corners. */
 
 .layout-hz-type-forward {
-  grid-template-columns: 65fr 35fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 55fr 45fr;
+  grid-template-rows: auto 1fr auto auto;
   grid-template-areas:
-    "logo   image"
+    "logo     image"
     "headline image"
-    "cta    image";
+    "offer    image"
+    "cta      image";
 }
 .layout-hz-type-forward .ad-el-headline {
   font-size: calc(var(--ad-size-headline) * 1.2);
@@ -101,16 +102,19 @@
    Elements anchored to edges. Horizontal spread. */
 
 .layout-hz-bookend {
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr auto auto;
   grid-template-areas:
-    "logo headline    cta"
-    ".    subheadline .";
-  align-items: center;
+    "logo headline    image"
+    ".    subheadline image"
+    "offer cta        image";
 }
-.layout-hz-bookend .ad-el-headline { text-align: center; justify-content: center; }
+.layout-hz-bookend .ad-el-headline { text-align: center; justify-content: center; align-items: flex-end; }
 .layout-hz-bookend .ad-el-subheadline { text-align: center; justify-content: center; }
-.layout-hz-bookend .ad-el-cta { align-items: center; }
+.layout-hz-bookend .ad-el-cta { align-items: flex-end; }
+.layout-hz-bookend .ad-el-image { padding: 0; }
+.layout-hz-bookend .ad-el-image img { border-radius: 0; }
+.layout-hz-bookend .ad-el-offer { align-items: flex-end; }
 
 
 /* ── 7. Offset Grid ───────────────────────────────────────────────
@@ -118,11 +122,12 @@
 
 .layout-hz-offset {
   grid-template-columns: 3fr 2fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto auto auto;
   grid-template-areas:
-    "headline  image"
+    "headline    image"
     "subheadline image"
-    ".         cta";
+    "offer       image"
+    ".           cta";
 }
 .layout-hz-offset .ad-el-headline { align-items: flex-end; }
 .layout-hz-offset .ad-el-image { border-radius: 12px; overflow: hidden; }
@@ -133,20 +138,20 @@
    Ultra-clean single-row horizontal strip. Maximum simplicity. */
 
 .layout-hz-minimal-strip {
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr auto;
   grid-template-areas:
-    "image headline cta";
-  align-items: center;
+    "image headline headline"
+    "image offer    cta";
 }
 .layout-hz-minimal-strip .ad-el-image {
-  width: 200px;
-  aspect-ratio: 1;
-  border-radius: 12px;
+  padding: 0;
   overflow: hidden;
 }
-.layout-hz-minimal-strip .ad-el-headline { padding: 0 var(--ad-gutter); }
+.layout-hz-minimal-strip .ad-el-image img { border-radius: 0; }
+.layout-hz-minimal-strip .ad-el-headline { padding: 0 var(--ad-gutter); align-items: flex-end; }
 .layout-hz-minimal-strip .ad-el-cta { align-items: center; }
+.layout-hz-minimal-strip .ad-el-offer { align-items: center; }
 
 
 /* ── 9. Power Right ───────────────────────────────────────────────
@@ -154,12 +159,13 @@
 
 .layout-hz-power-right {
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto minmax(76px, auto) auto auto auto;
   grid-template-areas:
-    "logo       image"
-    "headline   image"
+    "logo        image"
+    "headline    image"
     "subheadline image"
-    "cta        image";
+    "offer       image"
+    "cta         image";
 }
 .layout-hz-power-right .ad-el-image { padding: 0; }
 .layout-hz-power-right .ad-el-image img { border-radius: 0; }

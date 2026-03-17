@@ -8,11 +8,12 @@
 
 .layout-sq-golden-split {
   grid-template-columns: 62fr 38fr;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto auto auto;
   grid-template-areas:
     "image logo"
     "image headline"
     "image subheadline"
+    "image offer"
     "image cta";
 }
 .layout-sq-golden-split .ad-el-image { padding: 0; }
@@ -28,11 +29,12 @@
 
 .layout-sq-type-hero {
   grid-template-columns: 1fr;
-  grid-template-rows: auto 3fr auto auto 1fr;
+  grid-template-rows: auto 2fr auto auto auto 2fr;
   grid-template-areas:
     "logo"
     "headline"
     "subheadline"
+    "offer"
     "cta"
     "image";
 }
@@ -69,14 +71,14 @@
 
 .layout-sq-centered {
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto auto auto auto 1fr;
+  grid-template-rows: 1fr auto auto 2fr auto auto;
   grid-template-areas:
     "."
     "logo"
     "headline"
     "image"
-    "cta"
-    ".";
+    "offer"
+    "cta";
   justify-items: center;
   text-align: center;
 }
@@ -95,7 +97,7 @@
 
 .layout-sq-full-bleed {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr minmax(110px, auto) auto;
   grid-template-areas:
     "logo       offer"
     ".          ."
@@ -114,11 +116,12 @@
 
 .layout-sq-thirds {
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto auto auto;
   grid-template-areas:
     "image logo"
     "image headline"
     "image subheadline"
+    "image offer"
     "image cta";
 }
 .layout-sq-thirds .ad-el-image { padding: 0; }
@@ -133,10 +136,11 @@
 
 .layout-sq-stacked {
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr auto 1fr;
+  grid-template-rows: 2fr auto auto auto;
   grid-template-areas:
     "image"
     "headline"
+    "offer"
     "cta";
   gap: 0;
 }
@@ -184,14 +188,14 @@
 
 .layout-sq-minimal {
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr auto auto auto auto 1fr;
+  grid-template-rows: auto 2fr auto auto auto auto;
   grid-template-areas:
     "."
     "image"
     "headline"
     "subheadline"
-    "cta"
-    ".";
+    "offer"
+    "cta";
   justify-items: center;
   text-align: center;
 }
@@ -210,11 +214,12 @@
 
 .layout-sq-billboard {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr auto 1.5fr auto;
+  grid-template-rows: 1fr 1fr 2fr 1fr 1fr;
   grid-template-areas:
     "headline    headline"
     "subheadline subheadline"
     "image       image"
+    "offer       offer"
     "cta         cta";
 }
 .layout-sq-billboard .ad-el-headline {

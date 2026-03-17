@@ -64,7 +64,7 @@
   --ad-gutter: 24px;
 
   /* --- Ad Typography Scale (base for 1080px canvas) --- */
-  --ad-font-headline: 'Playfair Display', 'Georgia', serif;
+  --ad-font-headline: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --ad-font-body: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 
   --ad-size-headline: 84px;
@@ -86,9 +86,9 @@
   --ad-transform-cta: uppercase;
 
   /* --- Ad CTA --- */
-  --ad-cta-padding-x: 52px;
-  --ad-cta-padding-y: 24px;
-  --ad-cta-radius: 6px;
+  --ad-cta-padding-x: 56px;
+  --ad-cta-padding-y: 26px;
+  --ad-cta-radius: 14px;
 
   /* --- Ad Logo --- */
   --ad-logo-max-width: 100px;
