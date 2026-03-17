@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head>
+<body>
+<script type="module">
+const errors = [];
+window.onerror = (msg, src, line, col, err) => errors.push(`${msg} at ${src}:${line}`);
+
+try {
+  const { InputForm } = await import('./js/components/form.js');
+  console.log('✓ form.js loaded');
+} catch(e) { errors.push('form.js: ' + e.message); }
+
+try {
+  const { Gallery } = await import('./js/components/gallery.js');
+  console.log('✓ gallery.js loaded');
+} catch(e) { errors.push('gallery.js: ' + e.message); }
+
+try {
+  const { Preview } = await import('./js/components/preview.js');
+  console.log('✓ preview.js loaded');
+} catch(e) { errors.push('preview.js: ' + e.message); }
+
+try {
+  const { ExportManager } = await import('./js/components/export.js');
+  console.log('✓ export.js loaded');
+} catch(e) { errors.push('export.js: ' + e.message); }
+
+try {
+  const { VariantGenerator } = await import('./js/engine/generator.js');
+  console.log('✓ generator.js loaded');
+} catch(e) { errors.push('generator.js: ' + e.message); }
+
+if (errors.length) {
+  document.title = 'ERRORS: ' + JSON.stringify(errors);
+} else {
+  document.title = 'ALL_MODULES_OK';
+}
+</script>
+</body>
+</html>

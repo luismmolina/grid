@@ -1,0 +1,96 @@
+/* === Design Tokens === */
+:root {
+  /* --- UI Colors (App Chrome) --- */
+  --ui-bg: #0a0a0b;
+  --ui-surface: #141416;
+  --ui-surface-hover: #1c1c1f;
+  --ui-surface-active: #242428;
+  --ui-border: #2a2a2e;
+  --ui-border-light: #3a3a3f;
+  --ui-text: #f0f0f2;
+  --ui-text-secondary: #9898a0;
+  --ui-text-tertiary: #68686f;
+  --ui-accent: #6366f1;
+  --ui-accent-hover: #818cf8;
+  --ui-danger: #ef4444;
+  --ui-success: #22c55e;
+
+  /* --- UI Typography --- */
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+  /* --- UI Spacing --- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+
+  /* --- UI Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* --- Transitions --- */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 350ms ease;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.6);
+
+  /* --- Layout --- */
+  --input-panel-width: 360px;
+  --header-height: 56px;
+
+  /* ==============================================
+     AD DESIGN TOKENS
+     (Used inside generated ad designs)
+     ============================================== */
+
+  /* --- Ad Safe Zones (platform UI overlay protection, per-direction) --- */
+  --ad-safe-top: 64px;
+  --ad-safe-right: 64px;
+  --ad-safe-bottom: 64px;
+  --ad-safe-left: 64px;
+
+  /* --- Ad Grid Gutter --- */
+  --ad-gutter: 24px;
+
+  /* --- Ad Typography Scale (base for 1080px canvas) --- */
+  --ad-font-headline: 'Playfair Display', 'Georgia', serif;
+  --ad-font-body: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+
+  --ad-size-headline: 84px;
+  --ad-size-subheadline: 32px;
+  --ad-size-cta: 24px;
+  --ad-size-small: 18px;
+  --ad-size-offer: 18px;
+
+  --ad-weight-headline: 700;
+  --ad-weight-subheadline: 400;
+  --ad-weight-cta: 700;
+  --ad-weight-body: 400;
+
+  --ad-line-height-headline: 1.05;
+  --ad-line-height-body: 1.35;
+
+  --ad-tracking-headline: -0.02em;
+  --ad-transform-headline: none;
+  --ad-transform-cta: uppercase;
+
+  /* --- Ad CTA --- */
+  --ad-cta-padding-x: 48px;
+  --ad-cta-padding-y: 18px;
+  --ad-cta-radius: 6px;
+
+  /* --- Ad Logo --- */
+  --ad-logo-max-width: 100px;
+  --ad-logo-max-height: 48px;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Debug Test</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/layouts-square.css">
+<link rel="stylesheet" href="css/layouts-vertical.css">
+<link rel="stylesheet" href="css/layouts-horizontal.css">
+</head>
+<body>
+<pre id="log"></pre>
+<script>
+const log = document.getElementById('log');
+function L(msg) { log.textContent += msg + '\n'; console.log(msg); }
+window.onerror = (m,s,l) => L('ERROR: ' + m + ' at ' + s + ':' + l);
+window.addEventListener('unhandledrejection', e => L('REJECT: ' + e.reason));
+</script>
+<script type="module">
+const L = (msg) => { document.getElementById('log').textContent += msg + '\n'; };
+try {
+  L('1. Loading form.js...');
+  const { InputForm } = await import('./js/components/form.js');
+  L('   OK: InputForm is ' + typeof InputForm);
+} catch(e) { L('   FAIL: ' + e.message + '\n' + e.stack); }
+
+try {
+  L('2. Loading gallery.js...');
+  const { Gallery } = await import('./js/components/gallery.js');
+  L('   OK: Gallery is ' + typeof Gallery);
+} catch(e) { L('   FAIL: ' + e.message + '\n' + e.stack); }
+
+try {
+  L('3. Loading preview.js...');
+  const { Preview } = await import('./js/components/preview.js');
+  L('   OK: Preview is ' + typeof Preview);
+} catch(e) { L('   FAIL: ' + e.message + '\n' + e.stack); }
+
+try {
+  L('4. Loading export.js...');
+  const { ExportManager } = await import('./js/components/export.js');
+  L('   OK: ExportManager is ' + typeof ExportManager);
+} catch(e) { L('   FAIL: ' + e.message + '\n' + e.stack); }
+
+try {
+  L('5. Loading generator.js...');
+  const { VariantGenerator } = await import('./js/engine/generator.js');
+  L('   OK: VariantGenerator is ' + typeof VariantGenerator);
+} catch(e) { L('   FAIL: ' + e.message + '\n' + e.stack); }
+
+L('6. ALL MODULES LOADED');
+</script>
+</body></html>

@@ -1,0 +1,226 @@
+/* === Square (1:1) Layout Templates — 1080×1080 ===
+   Inspired by professional grid design principles.
+   Uses asymmetric splits, scale contrast, and generous whitespace. */
+
+
+/* ── 1. Golden Split ──────────────────────────────────────────────
+   Image left 62%, text stacked right 38%. Asymmetric, image dominant. */
+
+.layout-sq-golden-split {
+  grid-template-columns: 62fr 38fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "image logo"
+    "image headline"
+    "image subheadline"
+    "image cta";
+}
+.layout-sq-golden-split .ad-el-image { padding: 0; }
+.layout-sq-golden-split .ad-el-image img { border-radius: 0; }
+.layout-sq-golden-split .ad-el-headline { align-items: flex-end; padding-left: 8px; }
+.layout-sq-golden-split .ad-el-subheadline { padding-left: 8px; }
+.layout-sq-golden-split .ad-el-cta { justify-content: flex-start; padding-left: 8px; }
+.layout-sq-golden-split .ad-el-logo { justify-content: flex-end; }
+
+
+/* ── 2. Type Hero ─────────────────────────────────────────────────
+   MASSIVE headline dominates ~60% of space. Thin image strip at bottom. */
+
+.layout-sq-type-hero {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 3fr auto auto 1fr;
+  grid-template-areas:
+    "logo"
+    "headline"
+    "subheadline"
+    "cta"
+    "image";
+}
+.layout-sq-type-hero .ad-el-headline {
+  font-size: calc(var(--ad-size-headline) * 1.4);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.layout-sq-type-hero .ad-el-subheadline { text-align: center; justify-content: center; }
+.layout-sq-type-hero .ad-el-cta { justify-content: center; }
+.layout-sq-type-hero .ad-el-image { padding: 0; }
+.layout-sq-type-hero .ad-el-image img { border-radius: 0; }
+
+
+/* ── 3. Modular Grid ──────────────────────────────────────────────
+   3-column Swiss-inspired modular grid. Image spans 2×2, text top-right. */
+
+.layout-sq-modular {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 2fr 1fr auto;
+  grid-template-areas:
+    "image image    headline"
+    "image image    subheadline"
+    "cta   cta      cta";
+}
+.layout-sq-modular .ad-el-image { border-radius: 8px; overflow: hidden; }
+.layout-sq-modular .ad-el-headline { align-items: flex-end; }
+.layout-sq-modular .ad-el-cta { justify-content: flex-start; padding-top: 8px; }
+
+
+/* ── 4. Centered Axis ─────────────────────────────────────────────
+   Strong vertical axis, symmetrical with scaled variety. Generous whitespace. */
+
+.layout-sq-centered {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto auto auto auto 1fr;
+  grid-template-areas:
+    "."
+    "logo"
+    "headline"
+    "image"
+    "cta"
+    ".";
+  justify-items: center;
+  text-align: center;
+}
+.layout-sq-centered .ad-el-image {
+  width: 65%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.layout-sq-centered .ad-el-cta { justify-content: center; padding-top: 8px; }
+.layout-sq-centered .ad-el-logo { justify-content: center; }
+
+
+/* ── 5. Full Bleed ────────────────────────────────────────────────
+   OVERLAY LAYOUT — full-bleed background image, gradient overlay, text bottom.
+   Image is NOT in the grid; it's absolutely positioned behind. */
+
+.layout-sq-full-bleed {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "logo       offer"
+    ".          ."
+    "headline   headline"
+    "subheadline cta";
+}
+.layout-sq-full-bleed .ad-el-headline { color: #fff; align-items: flex-end; }
+.layout-sq-full-bleed .ad-el-subheadline { color: rgba(255, 255, 255, 0.8); align-items: flex-end; }
+.layout-sq-full-bleed .ad-el-cta { justify-content: flex-end; align-items: flex-end; }
+.layout-sq-full-bleed .ad-el-logo img { filter: brightness(0) invert(1); }
+.layout-sq-full-bleed .ad-el-offer { justify-content: flex-end; }
+
+
+/* ── 6. Rule of Thirds ────────────────────────────────────────────
+   Image occupies 2/3 left, text in remaining 1/3 right. Dramatic ratio. */
+
+.layout-sq-thirds {
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "image logo"
+    "image headline"
+    "image subheadline"
+    "image cta";
+}
+.layout-sq-thirds .ad-el-image { padding: 0; }
+.layout-sq-thirds .ad-el-image img { border-radius: 0; }
+.layout-sq-thirds .ad-el-headline { align-items: flex-end; }
+.layout-sq-thirds .ad-el-cta { justify-content: flex-start; }
+.layout-sq-thirds .ad-el-logo { justify-content: flex-end; }
+
+
+/* ── 7. Bold Stacked ──────────────────────────────────────────────
+   Three bold horizontal bands. Headline band uses inverted colors. */
+
+.layout-sq-stacked {
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr auto 1fr;
+  grid-template-areas:
+    "image"
+    "headline"
+    "cta";
+  gap: 0;
+}
+.layout-sq-stacked .ad-el-image { padding: 0; }
+.layout-sq-stacked .ad-el-image img { border-radius: 0; }
+.layout-sq-stacked .ad-el-headline {
+  background: var(--ad-primary);
+  color: var(--ad-bg);
+  padding: 24px 48px;
+  align-items: center;
+}
+.layout-sq-stacked .ad-el-cta {
+  background: var(--ad-cta-bg);
+  justify-content: center;
+  align-items: center;
+}
+.layout-sq-stacked .ad-el-cta .ad-el-cta__button {
+  background: transparent;
+  color: var(--ad-cta-text);
+}
+
+
+/* ── 8. Editorial Asymmetric ──────────────────────────────────────
+   Magazine editorial feel. Z-pattern reading with asymmetric text/image. */
+
+.layout-sq-editorial {
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "logo       image"
+    ".          image"
+    ".          headline"
+    "subheadline cta";
+}
+.layout-sq-editorial .ad-el-image { padding: 0; }
+.layout-sq-editorial .ad-el-image img { border-radius: 0; }
+.layout-sq-editorial .ad-el-headline { align-items: flex-end; }
+.layout-sq-editorial .ad-el-cta { justify-content: flex-end; align-items: flex-end; }
+.layout-sq-editorial .ad-el-subheadline { align-items: flex-end; }
+
+
+/* ── 9. Minimal Breathe ───────────────────────────────────────────
+   MAXIMUM whitespace. Small, precise elements floating in space.
+   Tiny circular image, clean centered text. */
+
+.layout-sq-minimal {
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr auto auto auto auto 1fr;
+  grid-template-areas:
+    "."
+    "image"
+    "headline"
+    "subheadline"
+    "cta"
+    ".";
+  justify-items: center;
+  text-align: center;
+}
+.layout-sq-minimal .ad-el-image {
+  width: 40%;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.layout-sq-minimal .ad-el-cta { justify-content: center; padding-top: 8px; }
+.layout-sq-minimal .ad-el-headline { padding-top: 16px; }
+
+
+/* ── 10. Billboard ────────────────────────────────────────────────
+   Huge headline top, image band middle, CTA bar bottom. Bold and direct. */
+
+.layout-sq-billboard {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr auto 1.5fr auto;
+  grid-template-areas:
+    "headline    headline"
+    "subheadline subheadline"
+    "image       image"
+    "cta         cta";
+}
+.layout-sq-billboard .ad-el-headline {
+  font-size: calc(var(--ad-size-headline) * 1.3);
+  align-items: flex-end;
+}
+.layout-sq-billboard .ad-el-image { padding: 0; }
+.layout-sq-billboard .ad-el-image img { border-radius: 0; }
+.layout-sq-billboard .ad-el-cta { justify-content: center; }

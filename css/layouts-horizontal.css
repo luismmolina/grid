@@ -1,0 +1,185 @@
+/* === Horizontal (1.91:1) Layout Templates — 1200×628 ===
+   Inspired by professional grid design principles.
+   Optimized for the wide landscape format with strong horizontal rhythm. */
+
+
+/* ── 1. Golden Split ──────────────────────────────────────────────
+   Image 62% left, text 38% right. Asymmetric, image dominant. */
+
+.layout-hz-golden-split {
+  grid-template-columns: 62fr 38fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "image logo"
+    "image headline"
+    "image cta";
+}
+.layout-hz-golden-split .ad-el-image { padding: 0; }
+.layout-hz-golden-split .ad-el-image img { border-radius: 0; }
+.layout-hz-golden-split .ad-el-headline { align-items: flex-end; padding-left: 8px; }
+.layout-hz-golden-split .ad-el-cta { justify-content: flex-start; padding-left: 8px; }
+.layout-hz-golden-split .ad-el-logo { justify-content: flex-end; }
+
+
+/* ── 2. Full Banner ───────────────────────────────────────────────
+   OVERLAY LAYOUT — full-bleed image with gradient from right.
+   White text on left side. */
+
+.layout-hz-full-banner {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "logo   ."
+    "headline ."
+    "cta    .";
+}
+.layout-hz-full-banner .ad-el-headline { color: #fff; align-items: flex-end; }
+.layout-hz-full-banner .ad-el-cta { justify-content: flex-start; }
+.layout-hz-full-banner .ad-el-logo img { filter: brightness(0) invert(1); }
+
+
+/* ── 3. Three Column ──────────────────────────────────────────────
+   Three distinct columns: image left, text center, logo+CTA right. */
+
+.layout-hz-three-col {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "image headline logo"
+    "image subheadline ."
+    "image .          cta";
+}
+.layout-hz-three-col .ad-el-image { padding: 0; }
+.layout-hz-three-col .ad-el-image img { border-radius: 0; }
+.layout-hz-three-col .ad-el-headline { align-items: flex-end; }
+.layout-hz-three-col .ad-el-logo { justify-content: flex-end; }
+.layout-hz-three-col .ad-el-cta { justify-content: flex-end; align-items: flex-end; }
+
+
+/* ── 4. Type Forward ──────────────────────────────────────────────
+   Huge headline dominates left 65%. Image on right with rounded corners. */
+
+.layout-hz-type-forward {
+  grid-template-columns: 65fr 35fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "logo   image"
+    "headline image"
+    "cta    image";
+}
+.layout-hz-type-forward .ad-el-headline {
+  font-size: calc(var(--ad-size-headline) * 1.2);
+  align-items: flex-end;
+}
+.layout-hz-type-forward .ad-el-image { border-radius: 12px; overflow: hidden; }
+.layout-hz-type-forward .ad-el-cta { justify-content: flex-start; }
+
+
+/* ── 5. Center Stage ──────────────────────────────────────────────
+   OVERLAY LAYOUT — centered text over full image with dark overlay. */
+
+.layout-hz-center-stage {
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr auto auto 1fr;
+  grid-template-areas:
+    "logo .        ."
+    ".    headline  ."
+    ".    cta       ."
+    ".    .         .";
+}
+.layout-hz-center-stage .ad-el-headline {
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-end;
+}
+.layout-hz-center-stage .ad-el-cta { justify-content: center; }
+.layout-hz-center-stage .ad-el-logo img { filter: brightness(0) invert(1); }
+
+
+/* ── 6. Bookend ───────────────────────────────────────────────────
+   Elements anchored to edges. Horizontal spread. */
+
+.layout-hz-bookend {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "logo headline    cta"
+    ".    subheadline .";
+  align-items: center;
+}
+.layout-hz-bookend .ad-el-headline { text-align: center; justify-content: center; }
+.layout-hz-bookend .ad-el-subheadline { text-align: center; justify-content: center; }
+.layout-hz-bookend .ad-el-cta { align-items: center; }
+
+
+/* ── 7. Offset Grid ───────────────────────────────────────────────
+   Asymmetric placement with dynamic diagonal flow. */
+
+.layout-hz-offset {
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "headline  image"
+    "subheadline image"
+    ".         cta";
+}
+.layout-hz-offset .ad-el-headline { align-items: flex-end; }
+.layout-hz-offset .ad-el-image { border-radius: 12px; overflow: hidden; }
+.layout-hz-offset .ad-el-cta { justify-content: flex-end; }
+
+
+/* ── 8. Minimal Strip ─────────────────────────────────────────────
+   Ultra-clean single-row horizontal strip. Maximum simplicity. */
+
+.layout-hz-minimal-strip {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "image headline cta";
+  align-items: center;
+}
+.layout-hz-minimal-strip .ad-el-image {
+  width: 200px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.layout-hz-minimal-strip .ad-el-headline { padding: 0 var(--ad-gutter); }
+.layout-hz-minimal-strip .ad-el-cta { align-items: center; }
+
+
+/* ── 9. Power Right ───────────────────────────────────────────────
+   Image dominates right 60%. Text stacks on left side. */
+
+.layout-hz-power-right {
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "logo       image"
+    "headline   image"
+    "subheadline image"
+    "cta        image";
+}
+.layout-hz-power-right .ad-el-image { padding: 0; }
+.layout-hz-power-right .ad-el-image img { border-radius: 0; }
+.layout-hz-power-right .ad-el-headline { align-items: flex-end; }
+.layout-hz-power-right .ad-el-cta { justify-content: flex-start; }
+
+
+/* ── 10. Banded ───────────────────────────────────────────────────
+   Strong horizontal bands of content. Clean division. */
+
+.layout-hz-banded {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr auto auto;
+  grid-template-areas:
+    "image      image"
+    "headline   subheadline"
+    "cta        cta";
+}
+.layout-hz-banded .ad-el-image { padding: 0; }
+.layout-hz-banded .ad-el-image img { border-radius: 0; }
+.layout-hz-banded .ad-el-headline { align-items: center; padding-top: 12px; }
+.layout-hz-banded .ad-el-subheadline { align-items: center; padding-top: 12px; }
+.layout-hz-banded .ad-el-cta { justify-content: center; }
